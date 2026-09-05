@@ -6,6 +6,8 @@
 
 [node name="Entities" type="Node2D" parent="." unique_id=2108609657]
 
+[node name="Towers" type="Node2D" parent="." unique_id=537495361]
+
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=194599393]
 layer = 10
 
