@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://cck4qf4vp3rlj"]
+
+[ext_resource type="Texture2D" uid="uid://glo7th833jq2" path="res://assets/enemies/balloons.png" id="1_acgdr"]
+[ext_resource type="Script" uid="uid://i0fqp75cjpou" path="res://src/combat/enemy/BasicEnemy.cs" id="1_u0upf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73s05"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3420"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00g1l"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8snp"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abiha"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy2jl"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3woee"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsu6q"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1te6"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2gl3"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcrcr"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgu4h"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_juksb"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d70lr"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjjhb"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n01cg"]
+atlas = ExtResource("1_acgdr")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73s05"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3420")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00g1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8snp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abiha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy2jl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3woee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsu6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1te6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2gl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcrcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgu4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_juksb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d70lr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjjhb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n01cg")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="RigidBody2D" unique_id=1854728983 node_paths=PackedStringArray("_navigationAgent2D") groups=["Enemies"]]
+angular_damp = 0.645
+script = ExtResource("1_u0upf")
+_navigationAgent2D = NodePath("NavigationAgent2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1826091614]
+shape = SubResource("CircleShape2D_73s05")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=50148784]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_73s05")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1701027394]
+navigation_layers = 2
+path_postprocessing = 1
+simplify_path = true
+simplify_epsilon = 1.0
+avoidance_enabled = true
+radius = 15.0
+debug_enabled = true
+debug_use_custom = true
