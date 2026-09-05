@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b6j8xomrig5rk"]
+
+[node name="Main" type="Node" unique_id=1635372146]
+
+[node name="Map" type="Node2D" parent="." unique_id=463888700]
+
+[node name="Entities" type="Node2D" parent="." unique_id=2108609657]
+
+[node name="GameLayer" type="CanvasLayer" parent="." unique_id=194599393]
+layer = 10
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=856524238]
+layer = 100
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=688806311]
+layer = 200
