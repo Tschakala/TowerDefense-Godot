@@ -13,6 +13,12 @@ public partial class PathManager : Node2D
     public override async void _Ready()
     {
         _target = GetTree().GetFirstNodeInGroup("TargetEnd") as Marker2D;
+        if (!IsInstanceValid(_target))
+        {
+            GD.PrintErr("No Available Targets found");
+            return;
+        }
+        
         _agent.SetTargetPosition(_target.GlobalPosition);
 
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
