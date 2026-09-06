@@ -46,14 +46,6 @@ offset = Vector2(320, 180)
 
 [node name="Map" type="Node2D" parent="World" unique_id=1464753263]
 
-[node name="Targets" type="Node2D" parent="World/Map" unique_id=1913024652]
-
-[node name="TargetEnd" type="Marker2D" parent="World/Map/Targets" unique_id=1459246893 groups=["TargetEnd"]]
-position = Vector2(550, 300)
-
-[node name="Spawner" parent="World/Map/Targets" unique_id=3389643 instance=ExtResource("1_rwa8d")]
-position = Vector2(66, 285)
-
 [node name="MapLayer" type="Node2D" parent="World/Map" unique_id=335480546]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="World/Map/MapLayer" unique_id=892983532 groups=["world_geometry"]]
@@ -64,6 +56,17 @@ tile_set = SubResource("TileSet_mu1t8")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World/Map/MapLayer" unique_id=1190399690]
 navigation_polygon = SubResource("NavigationPolygon_ryh5l")
 navigation_layers = 2
+
+[node name="Targets" type="Node2D" parent="World/Map" unique_id=1913024652]
+
+[node name="TargetEnd" type="Marker2D" parent="World/Map/Targets" unique_id=1459246893 groups=["TargetEnd"]]
+position = Vector2(550, 300)
+
+[node name="Spawner" parent="World/Map" unique_id=3389643 instance=ExtResource("1_rwa8d")]
+position = Vector2(66, 285)
+
+[node name="Spawner2" parent="World/Map" unique_id=765134841 instance=ExtResource("1_rwa8d")]
+position = Vector2(272, 61)
 
 [node name="Towers" type="Node2D" parent="World" unique_id=1458797474]
 

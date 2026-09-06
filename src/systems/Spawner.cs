@@ -7,8 +7,9 @@ namespace Towerdefense.systems;
 public partial class Spawner : Node2D
 {
 	[Export] private PackedScene _enemyScene;
-	[Export] private float _spawnDelay = 1; //In Seconds
+	[Export] private float _spawnDelay = 0.03f; //In Seconds
 	private Timer _spawnTimer = new Timer();
+	private int _amount = 0;
 	
 	public override void _Ready()
 	{
@@ -25,19 +26,21 @@ public partial class Spawner : Node2D
 
 	private void OnSpawnTimeout()
 	{
+		_amount = GetChildren().Count;
+		GD.Print(_amount);
 		Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
-		GetTree().Root.AddChild(enemyInstance);
+		AddChild(enemyInstance);
 		enemyInstance.GlobalPosition = GlobalPosition;
 		
 		Node2D target = GetTree().GetFirstNodeInGroup("TargetEnd") as Node2D;
 		if(!IsInstanceValid(target))
 		{
-			GD.PrintErr("No Available Targets found");
+			//GD.PrintErr("No Available Targets found");
 			return;
 		}
 		enemyInstance.SetPath(GetNavigationPath(GlobalPosition, target.GlobalPosition));
 		
-		GD.Print("[INFO] Enemy successfully spawned");
+		//GD.Print("[INFO] Enemy successfully spawned");
 	}
 	
 	private Vector2[] GetNavigationPath(Vector2 startPosition, Vector2 targetPosition)

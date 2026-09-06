@@ -8,7 +8,3 @@ script = ExtResource("1_kubxu")
 _enemyScene = ExtResource("2_naelc")
 
 [node name="TargetStart" type="Marker2D" parent="." unique_id=1250353107 groups=["TargetStarts"]]
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1087468591]
-navigation_layers = 2
-debug_enabled = true

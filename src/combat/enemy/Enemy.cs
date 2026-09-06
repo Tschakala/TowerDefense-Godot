@@ -6,7 +6,7 @@ namespace Towerdefense.combat.enemy;
 
 public partial class Enemy : CharacterBody2D
 {
-    [Export] private float _speed = 25f;
+    [Export] private float _speed = 250f;
     private Vector2[] _path;
     private readonly List<Vector2> _reachedPoints = new List<Vector2>();
     
@@ -17,14 +17,14 @@ public partial class Enemy : CharacterBody2D
         if(_path.Length == 0)
             return;
         
-        GD.Print("[INFO] Path is successfully initialized");
+        //GD.Print("[INFO] Path is successfully initialized");
     }
 
     Vector2 GetNextNearestPointInPath()
     {
         if (_path == null || _path.Length == 0)
         {
-            GD.PrintErr("Path is null or empty");
+            //GD.PrintErr("Path is null or empty");
             return Vector2.Zero;
         }
         
@@ -51,16 +51,22 @@ public partial class Enemy : CharacterBody2D
     
     public override void _PhysicsProcess(double delta)
     {
+        if (_reachedPoints.Count == _path.Length)
+        {
+            QueueFree();
+            return;
+        }
+        
         Vector2 nearestPoint = GetNextNearestPointInPath();
         Vector2 direction = nearestPoint - GlobalPosition;
-        if (GlobalPosition.DistanceTo(nearestPoint) < 0.5f)
+        if (GlobalPosition.DistanceTo(nearestPoint) < 50f)
         {
-            GD.Print("[INFO] Reached Point: " + nearestPoint);
+            //GD.Print("[INFO] Reached Point: " + nearestPoint);
             _reachedPoints.Add(nearestPoint);
             return;
         }
         
-        GD.Print("[INFO] Moving to" + nearestPoint);
+        //GD.Print("[INFO] Moving to" + nearestPoint);
         //GD.Print(GlobalPosition.DistanceTo(nearestPoint));
         
         direction = direction.Normalized();
