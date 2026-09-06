@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Towerdefense"
-run/main_scene="uid://b6j8xomrig5rk"
+run/main_scene="uid://ph7cyxt0dnfy"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=360
 config/icon="res://icon.svg"
@@ -32,8 +32,9 @@ project/assembly_name="Towerdefense"
 
 [global_group]
 
-EnemyTarget=""
 Enemies=""
+TargetStarts=""
+TargetEnd=""
 
 [physics]
 
@@ -42,4 +43,5 @@ Enemies=""
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

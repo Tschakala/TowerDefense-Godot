@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cjp570p02o0xs"]
+
+[ext_resource type="Texture2D" uid="uid://glo7th833jq2" path="res://assets/enemies/balloons.png" id="1_h1f1f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ryh5l"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=630119231 groups=["Enemies"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=181192019]
+position = Vector2(0, 1.125)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_h1f1f")
+region_enabled = true
+region_rect = Rect2(2, 0, 12, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=680854346]
+scale = Vector2(0.35, 0.35)
+shape = SubResource("CircleShape2D_ryh5l")
