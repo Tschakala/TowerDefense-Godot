@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d1u0p7ogyh2lu" path="res://src/systems/spawner.tscn" id="1_rwa8d"]
 [ext_resource type="Texture2D" uid="uid://ckjn4kjrnmp5l" path="res://assets/world/tile-sheet.png" id="2_ss3ij"]
+[ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://src/systems/target_end.tscn" id="2_tiefr"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7uq6d"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -59,14 +60,20 @@ navigation_layers = 2
 
 [node name="Targets" type="Node2D" parent="World/Map" unique_id=1913024652]
 
-[node name="TargetEnd" type="Marker2D" parent="World/Map/Targets" unique_id=1459246893 groups=["TargetEnd"]]
-position = Vector2(550, 300)
+[node name="TargetEnd" parent="World/Map/Targets" unique_id=873443979 groups=["TargetEnd"] instance=ExtResource("2_tiefr")]
+position = Vector2(543, 294)
 
 [node name="Spawner" parent="World/Map" unique_id=3389643 instance=ExtResource("1_rwa8d")]
 position = Vector2(66, 285)
 
-[node name="Spawner2" parent="World/Map" unique_id=765134841 instance=ExtResource("1_rwa8d")]
-position = Vector2(272, 61)
+[node name="Spawner2" parent="World/Map" unique_id=399231790 instance=ExtResource("1_rwa8d")]
+position = Vector2(151, 63)
+
+[node name="Spawner3" parent="World/Map" unique_id=1663138544 instance=ExtResource("1_rwa8d")]
+position = Vector2(354, 169)
+
+[node name="Spawner4" parent="World/Map" unique_id=977775798 instance=ExtResource("1_rwa8d")]
+position = Vector2(182, 168)
 
 [node name="Towers" type="Node2D" parent="World" unique_id=1458797474]
 

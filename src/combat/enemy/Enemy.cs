@@ -6,72 +6,66 @@ namespace Towerdefense.combat.enemy;
 
 public partial class Enemy : CharacterBody2D
 {
-    [Export] private float _speed = 250f;
+    [Export] private float _minSpeed = 22f;
+    [Export] private float _maxSpeed = 28f;
     private Vector2[] _path;
-    private readonly List<Vector2> _reachedPoints = new List<Vector2>();
+    private int _currentPathIndex = 0;
     
     public void SetPath(Vector2[] path)
     {
         _path = path;
-        
-        if(_path.Length == 0)
-            return;
-        
-        //GD.Print("[INFO] Path is successfully initialized");
-    }
-
-    Vector2 GetNextNearestPointInPath()
-    {
-        if (_path == null || _path.Length == 0)
-        {
-            //GD.PrintErr("Path is null or empty");
-            return Vector2.Zero;
-        }
-        
-        Vector2 nearestPoint = _path[^1];
-        for (int i = 0; i < _path.Length; i++)
-        {
-            Vector2 currentPoint = _path[i];
-            if (_reachedPoints.Contains(currentPoint))
-            {
-                continue;
-            }
-            
-            float currentDistance = GlobalPosition.DistanceTo(currentPoint);
-            float distanceToNearestPoint = GlobalPosition.DistanceTo(nearestPoint);
-            
-            if (currentDistance < distanceToNearestPoint)
-            {
-                nearestPoint = currentPoint;
-            }
-        }
-        
-        return nearestPoint;
+        _currentPathIndex = 0;
     }
     
     public override void _PhysicsProcess(double delta)
     {
-        if (_reachedPoints.Count == _path.Length)
-        {
-            QueueFree();
+        if (_path == null || _path.Length == 0)
             return;
-        }
         
-        Vector2 nearestPoint = GetNextNearestPointInPath();
-        Vector2 direction = nearestPoint - GlobalPosition;
-        if (GlobalPosition.DistanceTo(nearestPoint) < 50f)
+        while (_currentPathIndex < _path.Length - 1)
         {
-            //GD.Print("[INFO] Reached Point: " + nearestPoint);
-            _reachedPoints.Add(nearestPoint);
-            return;
-        }
-        
-        //GD.Print("[INFO] Moving to" + nearestPoint);
-        //GD.Print(GlobalPosition.DistanceTo(nearestPoint));
-        
-        direction = direction.Normalized();
+            Vector2 current = _path[_currentPathIndex];
+            Vector2 next = _path[_currentPathIndex + 1];
 
-        Velocity = direction * _speed;
+            if (GlobalPosition.DistanceTo(next) < GlobalPosition.DistanceTo(current))
+            {
+                _currentPathIndex++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        Vector2 targetPoint = _path[_currentPathIndex];
+        
+        if (GlobalPosition.DistanceTo(targetPoint) < 15f)
+        {
+            _currentPathIndex++;
+
+            if (_currentPathIndex >= _path.Length)
+            {
+                QueueFree();
+                return;
+            }
+
+            targetPoint = _path[_currentPathIndex];
+        }
+
+        Vector2 direction = (targetPoint - GlobalPosition).Normalized();
+        direction = direction.Normalized();
+        Velocity = direction * (float)GD.RandRange(_minSpeed, _maxSpeed);
+        
         MoveAndSlide();
+
+        for (int i = 0; i < GetSlideCollisionCount(); i++)
+        {
+            var collision = GetSlideCollision(i);
+
+            if (collision.GetCollider() is Enemy other)
+            {
+                other.GlobalPosition += Velocity.Normalized() * 1.5f;
+            }
+        }
     }
 }

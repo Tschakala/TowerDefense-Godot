@@ -7,7 +7,7 @@ namespace Towerdefense.systems;
 public partial class Spawner : Node2D
 {
 	[Export] private PackedScene _enemyScene;
-	[Export] private float _spawnDelay = 0.03f; //In Seconds
+	[Export] private float _spawnDelay = 0.05f; //In Seconds
 	private Timer _spawnTimer = new Timer();
 	private int _amount = 0;
 	
@@ -30,7 +30,7 @@ public partial class Spawner : Node2D
 		GD.Print(_amount);
 		Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
 		AddChild(enemyInstance);
-		enemyInstance.GlobalPosition = GlobalPosition;
+		enemyInstance.GlobalPosition = GlobalPosition +  new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
 		
 		Node2D target = GetTree().GetFirstNodeInGroup("TargetEnd") as Node2D;
 		if(!IsInstanceValid(target))
@@ -61,7 +61,7 @@ public partial class Spawner : Node2D
 
 		foreach (var pos in path)
 		{
-			GD.Print(pos);
+			//GD.Print(pos);
 		}
 		
 		return path;
