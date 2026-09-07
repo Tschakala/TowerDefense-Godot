@@ -10,6 +10,12 @@ public partial class Enemy : CharacterBody2D
     [Export] private float _maxSpeed = 28f;
     private Vector2[] _path;
     private int _currentPathIndex = 0;
+    [Export] private AnimatedSprite2D _frameSprite;
+
+    public override void _Ready()
+    {
+        _frameSprite.Frame = GD.RandRange(0, 14);
+    }
     
     public void SetPath(Vector2[] path)
     {

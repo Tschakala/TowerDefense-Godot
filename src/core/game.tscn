@@ -60,20 +60,38 @@ navigation_layers = 2
 
 [node name="Targets" type="Node2D" parent="World/Map" unique_id=1913024652]
 
-[node name="TargetEnd" parent="World/Map/Targets" unique_id=873443979 groups=["TargetEnd"] instance=ExtResource("2_tiefr")]
-position = Vector2(543, 294)
+[node name="TargetEnd" parent="World/Map/Targets" unique_id=873443979 instance=ExtResource("2_tiefr")]
+position = Vector2(300, 62)
 
 [node name="Spawner" parent="World/Map" unique_id=3389643 instance=ExtResource("1_rwa8d")]
 position = Vector2(66, 285)
 
 [node name="Spawner2" parent="World/Map" unique_id=399231790 instance=ExtResource("1_rwa8d")]
-position = Vector2(151, 63)
+position = Vector2(155, 65)
 
 [node name="Spawner3" parent="World/Map" unique_id=1663138544 instance=ExtResource("1_rwa8d")]
 position = Vector2(354, 169)
 
 [node name="Spawner4" parent="World/Map" unique_id=977775798 instance=ExtResource("1_rwa8d")]
-position = Vector2(182, 168)
+position = Vector2(205, 292)
+
+[node name="Spawner5" parent="World/Map" unique_id=378566781 instance=ExtResource("1_rwa8d")]
+position = Vector2(50, 110)
+
+[node name="Spawner6" parent="World/Map" unique_id=1801008726 instance=ExtResource("1_rwa8d")]
+position = Vector2(253, 216)
+
+[node name="Spawner8" parent="World/Map" unique_id=1379193691 instance=ExtResource("1_rwa8d")]
+position = Vector2(464, 243)
+
+[node name="Spawner9" parent="World/Map" unique_id=2012509982 instance=ExtResource("1_rwa8d")]
+position = Vector2(538, 58)
+
+[node name="Spawner10" parent="World/Map" unique_id=1286395644 instance=ExtResource("1_rwa8d")]
+position = Vector2(535, 291)
+
+[node name="Spawner7" parent="World/Map" unique_id=722156932 instance=ExtResource("1_rwa8d")]
+position = Vector2(81, 215)
 
 [node name="Towers" type="Node2D" parent="World" unique_id=1458797474]
 

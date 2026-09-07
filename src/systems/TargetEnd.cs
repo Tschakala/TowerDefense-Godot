@@ -9,7 +9,7 @@ public partial class TargetEnd : Node2D
 		{
 			enemy.QueueFree();
 
-			GD.Print("Enemy reached target!");
+			//GD.Print("Enemy reached target!");
 		}
 	}
 }
