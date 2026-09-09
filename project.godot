@@ -35,6 +35,7 @@ project/assembly_name="Towerdefense"
 Enemies=""
 TargetStarts=""
 TargetEnd=""
+world_geometry=""
 
 [physics]
 
