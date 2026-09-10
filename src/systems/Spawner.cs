@@ -27,7 +27,7 @@ public partial class Spawner : Node2D
 	private void OnSpawnTimeout()
 	{
 		_amount = GetChildren().Count;
-		GD.Print(_amount);
+		//GD.Print(_amount);
 		Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
 		AddChild(enemyInstance);
 		enemyInstance.GlobalPosition = GlobalPosition +  new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
