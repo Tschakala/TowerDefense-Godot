@@ -30,6 +30,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="Towerdefense"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
+
 [global_group]
 
 Enemies=""
