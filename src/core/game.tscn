@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://ph7cyxt0dnfy"]
 
-[ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://src/core/world.tscn" id="1_yqd5c"]
+[ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://src/player/CameraController.cs" id="1_rwa8d"]
+[ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://src/core/legacyWorld.tscn" id="1_yqd5c"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
 [node name="System" type="Node" parent="." unique_id=57239563]
 
-[node name="Camera2D" type="Camera2D" parent="System" unique_id=1676960948]
+[node name="PlayerCamera" type="Camera2D" parent="System" unique_id=1676960948]
+position = Vector2(1, 0)
 offset = Vector2(320, 180)
+script = ExtResource("1_rwa8d")
 
 [node name="Map" type="Node2D" parent="." unique_id=350258239]
 
