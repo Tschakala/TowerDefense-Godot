@@ -1987,8 +1987,6 @@ navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_36mxp")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4go5o"]
-vertices = PackedVector2Array(185, 137, 103, 137, 103, 135, 185, 135)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 source_geometry_mode = 2
 source_geometry_group_name = &"world_geometry"
 agent_radius = 15.0
