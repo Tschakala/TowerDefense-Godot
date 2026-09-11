@@ -1,10 +1,13 @@
+using System.Numerics;
 using Godot;
+using Vector2 = Godot.Vector2;
 
 namespace Towerdefense.player;
 
 public partial class CameraController : Camera2D
 {
 	[Export] private float _sensitivity = 0.25f;
+	[Export] private float _zoomSensitivity = 0.025f;
  	private bool _isMoving = false;
 	
 	public override void _PhysicsProcess(double delta)
@@ -21,12 +24,19 @@ public partial class CameraController : Camera2D
 	{
 		if (@event is InputEventMouseMotion mouseMotion && Input.IsActionPressed("camera_move"))
 		{
-			Input.MouseMode = Input.MouseModeEnum.Captured;
 			MoveCamera(-mouseMotion.Relative * _sensitivity);
 		}
-		else
+
+		if (Input.IsActionJustReleased("camera_zoom"))
 		{
-			Input.MouseMode = Input.MouseModeEnum.Confined;
+			Zoom += Vector2.One * _zoomSensitivity;
+			//SetZoom(_currentZoom);
+		}
+		
+		if (Input.IsActionJustReleased("camera_unzoom"))
+		{
+			Zoom -= Vector2.One * _zoomSensitivity;
+			//SetZoom(_currentZoom);
 		}
 	}
 }
