@@ -41,7 +41,7 @@ public partial class SpawnerManager : Node2D
 	private void InitializeSpawnPoints()
 	{
 		var children = _spawnPointsRoot.GetChildren();
-		_spawnPoints = new Vector2[children.Count - 1];
+		_spawnPoints = new Vector2[children.Count];
 		for (int i = 0; i < _spawnPoints.Length; i++)
 		{
 			Node2D currentNode2D = children[i] as Node2D;
@@ -123,10 +123,13 @@ public partial class SpawnerManager : Node2D
 				return;
 			}
 
+			GD.Print("Enemy Spawned At: ", spawnPoint);
+			GD.Print("Target Position: ", _targetPosition);
+			
 			Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
-			AddChild(enemyInstance);
 			enemyInstance.GlobalPosition = spawnPoint + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
 			enemyInstance.SetPath(path);
+			AddChild(enemyInstance);
 		}
 	}
 	

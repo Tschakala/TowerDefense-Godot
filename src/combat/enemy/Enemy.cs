@@ -25,6 +25,8 @@ public partial class Enemy : CharacterBody2D
     
     public override void _PhysicsProcess(double delta)
     {
+        //GD.Print("Enemy is Alive!");
+        
         if (_path == null || _path.Length == 0)
             return;
         
@@ -49,11 +51,11 @@ public partial class Enemy : CharacterBody2D
         {
             _currentPathIndex++;
 
-            // if (_currentPathIndex >= _path.Length)
-            // {
-            //     QueueFree();
-            //     return;
-            // }
+             if (_currentPathIndex >= _path.Length) 
+             {
+                 GD.Print("Enemy reached end of path");
+                 return;
+             }
 
             targetPoint = _path[_currentPathIndex];
         }
@@ -73,5 +75,10 @@ public partial class Enemy : CharacterBody2D
                 other.GlobalPosition += Velocity.Normalized() * 1.5f;
             }
         }
+    }
+    
+    public override void _ExitTree()
+    {
+        GD.Print("ENEMY REMOVED");
     }
 }

@@ -2017,10 +2017,10 @@ tile_set = SubResource("TileSet_ryh5l")
 navigation_polygon = SubResource("NavigationPolygon_4go5o")
 navigation_layers = 2
 
+[node name="SpawnPointsRoot" type="Node2D" parent="." unique_id=2058524918]
+
 [node name="SpawnerManager" type="Node2D" parent="." unique_id=1890967110 node_paths=PackedStringArray("_spawnPointsRoot")]
 process_mode = 3
 script = ExtResource("4_ys0h7")
 _enemyScene = ExtResource("5_6bpcd")
 _spawnPointsRoot = NodePath("../SpawnPointsRoot")
-
-[node name="SpawnPointsRoot" type="Node2D" parent="." unique_id=2058524918]

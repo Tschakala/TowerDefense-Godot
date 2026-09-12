@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://src/player/CameraController.cs" id="1_rwa8d"]
 [ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://src/world/produceral_world.tscn" id="1_yqd5c"]
+[ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://src/world/target/target_end.tscn" id="3_ss3ij"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
@@ -20,6 +21,8 @@ _sensitivity = 0.7
 [node name="Towers" type="Node2D" parent="Map" unique_id=1458797474]
 
 [node name="Enemies" type="Node2D" parent="Map" unique_id=2146312619 groups=["Enemies"]]
+
+[node name="TargetEnd" parent="Map" unique_id=873443979 instance=ExtResource("3_ss3ij")]
 
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=802596141]
 layer = 10

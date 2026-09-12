@@ -10,8 +10,6 @@ public partial class TargetEnd : Node2D
 		if (body is Enemy enemy)
 		{
 			enemy.QueueFree();
-
-			//GD.Print("Enemy reached target!");
 		}
 	}
 }

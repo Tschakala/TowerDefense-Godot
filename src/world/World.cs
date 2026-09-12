@@ -14,7 +14,7 @@ public partial class World : Node2D
 	
 	// Size
 	[Export] private int _mapSize = 200;
-	[Export] private int _pathcount = 5;
+	[Export] private int _pathcount = 15;
 	[Export] private int _pathlenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
 	[Export] private int _minDistanceToEnd = 850;
 	
@@ -187,9 +187,9 @@ public partial class World : Node2D
 			spawnerInstance.GlobalPosition = node.GetPosition;
 			_spawnPointsRoot.AddChild(spawnerInstance);
 		}
-		TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
+		/*TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
 		targetEndInstance.GlobalPosition = _endNode.GetPosition;
-		AddChild(targetEndInstance);
+		AddChild(targetEndInstance);*/
 	}
 
 	private void GeneratePaths()

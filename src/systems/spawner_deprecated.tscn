@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d1u0p7ogyh2lu"]
+[gd_scene format=3 uid="uid://dwd6la3b7op7g"]
 
 [ext_resource type="Script" uid="uid://coaqyst3n8srh" path="res://src/systems/Spawner.cs" id="1_02aid"]
 [ext_resource type="Texture2D" uid="uid://d3h4ylgn7vw10" path="res://assets/Tower/fire.png" id="2_u7cvv"]
