@@ -1991,11 +1991,14 @@ source_geometry_mode = 2
 source_geometry_group_name = &"world_geometry"
 agent_radius = 15.0
 
-[node name="World" type="Node2D" unique_id=1276905630 node_paths=PackedStringArray("_backGround", "_walls", "_path")]
+[node name="World" type="Node2D" unique_id=1276905630 node_paths=PackedStringArray("_backGround", "_walls", "_path", "_nagivation")]
 script = ExtResource("1_n3a2o")
 _backGround = NodePath("Background")
 _walls = NodePath("Walls")
 _path = NodePath("Path")
+_endScene = ExtResource("3_n3a2o")
+_spawnerScene = ExtResource("2_rto0b")
+_nagivation = NodePath("NavigationRegion2D")
 
 [node name="Background" type="TileMapLayer" parent="." unique_id=234476926]
 tile_set = SubResource("TileSet_rsg1b")
@@ -2009,13 +2012,3 @@ tile_set = SubResource("TileSet_rto0b")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=792673518 groups=["world_geometry"]]
 navigation_polygon = SubResource("NavigationPolygon_4go5o")
 navigation_layers = 2
-
-[node name="Spawners" type="Node2D" parent="." unique_id=260622055]
-
-[node name="Spawner" parent="Spawners" unique_id=3389643 instance=ExtResource("2_rto0b")]
-position = Vector2(66, 21)
-
-[node name="End" type="Node2D" parent="." unique_id=1051997916]
-
-[node name="TargetEnd" parent="End" unique_id=873443979 instance=ExtResource("3_n3a2o")]
-position = Vector2(48, 258)

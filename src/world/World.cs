@@ -1,5 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Towerdefense.systems;
+using Towerdefense.world;
 
 public partial class World : Node2D
 {
@@ -9,19 +13,43 @@ public partial class World : Node2D
 	[Export] private TileMapLayer _path;
 	
 	// Size
-	[Export] private int _mapSize = 100;
+	[Export] private int _mapSize = 300;
+	[Export] private int _pathcount = 15;
+	[Export] private int _pathlenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
 	
-	// noise
-	private FastNoiseLite _noise =  new FastNoiseLite();
-	[Export] private float _frequence  = 0.02f;
+	// End
+	private PathNode _endNode;
+	[Export] private PackedScene _endScene;
 	
-	//random Number
+	// Spawner
+	private List<PathNode> _spawners = new();
+	[Export] private PackedScene _spawnerScene;
+	
+	// Path
+	private HashSet<Vector2I> _pathTiles = new();
+	
+	// Random Number
 	private RandomNumberGenerator _rng = new RandomNumberGenerator();
+	
+	// NagivationRegion
+	[Export] private NavigationRegion2D _nagivation;
 	
 	public override void _Ready()
 	{
-		GenerateBackground();		
+		_endNode = new PathNode(Vector2I.Zero);
+		GenerateSpawners();
+		
+		GenerateBackground();
+		GeneratePaths();
+		DrawPaths();
 		GenerateMap();
+
+		_nagivation.BakeNavigationPolygon();
+		
+		foreach (PathNode n in _spawners)
+		{
+			GD.Print(n.GetPosition);
+		}
 	}
 
 	private void GenerateBackground()
@@ -37,87 +65,161 @@ public partial class World : Node2D
 	
 	private void GenerateMap()
 	{
-		_noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
-		_noise.Frequency = _frequence;
-		
-
 		for (int i = -(_mapSize / 2); i < _mapSize; i++)
 		{
 			for (int j = -(_mapSize / 2); j < _mapSize; j++)
 			{
-				float noiseValue = _noise.GetNoise2D(i, j);
-				noiseValue = (noiseValue + 1) / 2; //Normalize from [-1;1] to [0;1]
-				//GD.Print(noiseValue);
-				if ((i == -(_mapSize / 2) || i == _mapSize - 1 || j ==  -(_mapSize / 2) || j == _mapSize - 1) || (i == -(_mapSize / 2) + 1 || i == _mapSize - 2 || j ==  -(_mapSize / 2) + 1 || j == _mapSize - 2)) // walls around the map
+				if ((i == -(_mapSize / 2) || i == _mapSize - 1 || j == -(_mapSize / 2) || j == _mapSize - 1) || (i == -(_mapSize / 2) + 1 || i == _mapSize - 2 || j == -(_mapSize / 2) + 1 || j == _mapSize - 2)) // walls around the map
 				{
-					if (i == -(_mapSize / 2) + 1)
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(6, _rng.RandiRange(2, 5)));
-					}
-					else if (i == _mapSize - 2)
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(1, _rng.RandiRange(2, 5)));
-					}
-					else if (j ==  -(_mapSize / 2) + 1)
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(2, 5), 6));
-					}
-					else if (j == _mapSize - 2)
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(2, 5), 1));	
-					}
-					else if (i == -(_mapSize / 2))
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(8, _rng.RandiRange(2, 5)));
-					}
-					else if (i == _mapSize - 1)
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(13, _rng.RandiRange(2, 5)));
-					}
-					else if (j ==  -(_mapSize / 2))
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(9, 12), 1));
-					}
-					else
-					{
-						DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(9, 12), 6));
-					}
-				}
-				else
-				{
-					if (noiseValue >= 0.5)
-					{
-						if (noiseValue >= 0.5 && noiseValue < 0.52)
-						{
-							DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(3, 1));	
-						}
-						else if (noiseValue >= 0.52 && noiseValue < 0.54)
-						{
-							DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(3, 2));						
-						}
-						else
-						{ 
-							DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(28, 3));	
-						}
-					}
-					else
-					{
-						if (j % 2 == 0)
-						{
-							DrawColumn(_path,new Vector2I(i,j),1, new Vector2I(16, 5));	
-						}
-						else
-						{
-							DrawColumn(_path,new Vector2I(i,j),1, new Vector2I(16, 6));
-						}
-					
-					}
+					DrawBarrior(i, j);
 				}
 			}
 		}
-		
 	}
 
+	private void DrawBarrior(int i, int j)
+	{
+		if (j ==  -(_mapSize / 2))
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(9, 12), 1));
+		}
+		else if (j == _mapSize - 1)
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(9, 12), 6));
+		}
+		else if (i == -(_mapSize / 2))
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(8, _rng.RandiRange(2, 5)));
+		}
+		else if (i == _mapSize - 1)
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(13, _rng.RandiRange(2, 5)));
+		}
+		else if (i == -(_mapSize / 2) + 1)
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(6, _rng.RandiRange(2, 5)));
+		}
+		else if (i == _mapSize - 2)
+		{
+			DrawColumn(_walls, new Vector2I(i, j), 3, new Vector2I(1, _rng.RandiRange(2, 5)));
+		}
+		else if (j ==  -(_mapSize / 2) + 1)
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(2, 5), 6));
+		}
+		else if (j == _mapSize - 2)
+		{
+			DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(_rng.RandiRange(2, 5), 1));
+		}
+		
+		if (j ==  -(_mapSize / 2))
+		{
+			if (i == -(_mapSize / 2))
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(8, 1));
+			}
+			else if (i == _mapSize - 1)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(13, 1));
+			}
+		}
+		else if (j == _mapSize - 1)
+		{
+			if (i == -(_mapSize / 2))
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(8, 6));
+			}
+			else if (i == _mapSize - 1)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(13, 6));
+			}
+		}
+		else if (j == -(_mapSize / 2) + 1)
+		{
+			if (i == -(_mapSize / 2) + 1)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(9, 2));
+			}
+			else if (i == _mapSize - 2)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(12, 2));
+			}
+		}
+		else if (j == _mapSize - 2)
+		{
+			if (i == -(_mapSize / 2) + 1)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(9, 5));
+			}
+			else if (i == _mapSize - 2)
+			{
+				DrawColumn(_walls,new Vector2I(i,j),3, new Vector2I(12, 5));
+			}
+		}
+	}
+	
+	private void GenerateSpawners()
+	{
+		for (int x = 0; x < _pathcount; x++)
+		{
+			PathNode node = new PathNode(new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7));
+			_spawners.Add(node);
+			
+			Spawner spawnerInstance = _spawnerScene.Instantiate<Spawner>();
+			spawnerInstance.GlobalPosition = node.GetPosition;
+			AddChild(spawnerInstance);
+		}
+		TargetEnd TargetEndInstance = _endScene.Instantiate<TargetEnd>();
+		TargetEndInstance.GlobalPosition = _endNode.GetPosition;
+		AddChild(TargetEndInstance);
+	}
+
+	private void GeneratePaths()
+	{
+		foreach (PathNode node in _spawners)
+		{
+			CreatePath(node.GetPosition / 7, _endNode.GetPosition / 7);
+		}
+	}
+	
+	private void CreatePath(Vector2I start, Vector2I end)
+	{
+		Vector2I current = start;
+
+		while (current != end)
+		{
+			_pathTiles.Add(current);
+
+			bool moveX = _rng.Randf() < 0.5f;
+
+			if (moveX && current.X != end.X)
+			{
+				current.X += Math.Sign(end.X - current.X);
+			}
+			else if (current.Y != end.Y)
+			{
+				current.Y += Math.Sign(end.Y - current.Y);
+			}
+		}
+
+		_pathTiles.Add(end);
+	}
+
+	private void DrawPaths()
+	{
+		
+		foreach (Vector2I tile in _pathTiles)
+		{
+			for (int i = -_pathlenght; i <= _pathlenght; i++)
+			{
+				for (int j = -_pathlenght; j <= _pathlenght; j++)
+				{
+					DrawColumn(_path, tile + new Vector2I(i ,j), 1, new Vector2I(16,  5));
+				}
+			}
+		}
+	}
+	
 	private void DrawColumn(TileMapLayer layer, Vector2I pos, int idMap, Vector2I idTile)
 	{
 		layer.SetCell(pos, idMap, idTile);
