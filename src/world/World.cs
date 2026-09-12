@@ -13,9 +13,10 @@ public partial class World : Node2D
 	[Export] private TileMapLayer _path;
 	
 	// Size
-	[Export] private int _mapSize = 300;
-	[Export] private int _pathcount = 15;
+	[Export] private int _mapSize = 200;
+	[Export] private int _pathcount = 5;
 	[Export] private int _pathlenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
+	[Export] private int _minDistanceToEnd = 850;
 	
 	// End
 	private PathNode _endNode;
@@ -162,7 +163,12 @@ public partial class World : Node2D
 	{
 		for (int x = 0; x < _pathcount; x++)
 		{
-			PathNode node = new PathNode(new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7));
+			Vector2I pos = new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7);
+			while (pos.DistanceTo(_endNode.GetPosition) < _minDistanceToEnd)
+			{
+				pos = new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7);
+			}
+			PathNode node = new PathNode(pos);
 			_spawners.Add(node);
 			
 			Spawner spawnerInstance = _spawnerScene.Instantiate<Spawner>();
@@ -178,13 +184,26 @@ public partial class World : Node2D
 	{
 		foreach (PathNode node in _spawners)
 		{
-			CreatePath(node.GetPosition / 7, _endNode.GetPosition / 7);
+			Vector2I start = new Vector2I((int)(node.GetPosition.X / 7.7f), (int)(node.GetPosition.Y / 7.7f));
+			Vector2I end = new Vector2I((int)(_endNode.GetPosition.X / 7.7f), (int)(_endNode.GetPosition.Y / 7.7f));
+
+			CreatePath(start, end);
 		}
 	}
 	
 	private void CreatePath(Vector2I start, Vector2I end)
 	{
 		Vector2I current = start;
+
+		if (current.X != end.X)
+		{
+			current.X += Math.Sign(end.X - current.X);
+		}
+		else if (current.Y != end.Y)
+		{
+			current.Y += Math.Sign(end.Y - current.Y);
+		}
+			
 
 		while (current != end)
 		{
