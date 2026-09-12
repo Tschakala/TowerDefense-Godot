@@ -1,33 +1,41 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using Towerdefense.combat.enemy;
 
-namespace Towerdefense.core;
+namespace Towerdefense.systems;
 
 public partial class SpawnerManager : Node2D
 {
 	[Export] private PackedScene _enemyScene;
 	[Export] private float _spawnDelay = 0.05f; //In Seconds
-	[Export] private int _maxEnemies = 1;
+	[Export] private int _maxEnemies = 1000;
 	[Export] private Node2D _spawnPointsRoot;
 	private Timer _spawnTimer = new Timer();
 	private Vector2 _targetPosition;
 	private Vector2[] _spawnPoints;
 	private List<Vector2[]> _paths = new List<Vector2[]>();
 	private int _amountEnemies = 0;
-	
+	private bool _enabled = false;
+
 	public override void _Ready()
 	{
-		InitializeTarget();
 		InitializeSpawnTimer();
+	}
+
+	public void Initialize()
+	{
+		InitializeTarget();
 		InitializeSpawnPoints();
 
 		for (int i = 0; i < _spawnPoints.Length; i++)
 		{
 			_paths.Add([]);
 		}
+	}
+
+	public void SetEnabled(bool enabled)
+	{
+		_enabled = enabled;
 	}
 
 	private void InitializeSpawnPoints()
@@ -82,11 +90,16 @@ public partial class SpawnerManager : Node2D
     
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!_enabled)
+			return;
 		TryToGetPathIfEmpty(); 
 	}
 
 	private void OnSpawnTimeout()
 	{
+		if (!_enabled)
+			return;
+		GD.Print("Spawning Enemy...");
 		_amountEnemies = GetChildren().Count;
 		GD.Print("Amount of enemies: " + _amountEnemies);
 

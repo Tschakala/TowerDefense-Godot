@@ -4,7 +4,7 @@ using Towerdefense.combat.enemy;
 
 namespace Towerdefense.systems;
 
-public partial class Spawner : Node2D
+public partial class Spawner : Node2D //Spawner
 {
 	[Export] private PackedScene _enemyScene;
 	[Export] private float _spawnDelay = 0.05f; //In Seconds

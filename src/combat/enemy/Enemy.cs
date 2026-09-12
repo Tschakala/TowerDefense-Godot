@@ -49,11 +49,11 @@ public partial class Enemy : CharacterBody2D
         {
             _currentPathIndex++;
 
-            if (_currentPathIndex >= _path.Length)
-            {
-                QueueFree();
-                return;
-            }
+            // if (_currentPathIndex >= _path.Length)
+            // {
+            //     QueueFree();
+            //     return;
+            // }
 
             targetPoint = _path[_currentPathIndex];
         }

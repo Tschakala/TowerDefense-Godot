@@ -1,9 +1,9 @@
-using Godot;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using Godot;
 using Towerdefense.systems;
-using Towerdefense.world;
+
+namespace Towerdefense.world;
 
 public partial class World : Node2D
 {
@@ -25,6 +25,10 @@ public partial class World : Node2D
 	// Spawner
 	private List<PathNode> _spawners = new();
 	[Export] private PackedScene _spawnerScene;
+	
+	//SpawnerManager
+	[Export] private SpawnerManager _spawnerManager;
+	[Export] private Node2D _spawnPointsRoot;
 	
 	// Path
 	private HashSet<Vector2I> _pathTiles = new();
@@ -51,8 +55,16 @@ public partial class World : Node2D
 		{
 			GD.Print(n.GetPosition);
 		}
+
+		EnableAndInitializeSpawnerManager();
 	}
 
+	private void EnableAndInitializeSpawnerManager()
+	{
+		_spawnerManager.Initialize();
+		_spawnerManager.SetEnabled(true);
+	}
+	
 	private void GenerateBackground()
 	{
 		for (int i = -(_mapSize / 2); i < _mapSize; i++)
@@ -171,13 +183,13 @@ public partial class World : Node2D
 			PathNode node = new PathNode(pos);
 			_spawners.Add(node);
 			
-			Spawner spawnerInstance = _spawnerScene.Instantiate<Spawner>();
+			var spawnerInstance = _spawnerScene.Instantiate<Node2D>();
 			spawnerInstance.GlobalPosition = node.GetPosition;
-			AddChild(spawnerInstance);
+			_spawnPointsRoot.AddChild(spawnerInstance);
 		}
-		TargetEnd TargetEndInstance = _endScene.Instantiate<TargetEnd>();
-		TargetEndInstance.GlobalPosition = _endNode.GetPosition;
-		AddChild(TargetEndInstance);
+		TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
+		targetEndInstance.GlobalPosition = _endNode.GetPosition;
+		AddChild(targetEndInstance);
 	}
 
 	private void GeneratePaths()
@@ -226,7 +238,6 @@ public partial class World : Node2D
 
 	private void DrawPaths()
 	{
-		
 		foreach (Vector2I tile in _pathTiles)
 		{
 			for (int i = -_pathlenght; i <= _pathlenght; i++)

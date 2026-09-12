@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d1u0p7ogyh2lu"]
+
+[ext_resource type="Script" uid="uid://coaqyst3n8srh" path="res://src/systems/Spawner.cs" id="1_02aid"]
+[ext_resource type="Texture2D" uid="uid://d3h4ylgn7vw10" path="res://assets/Tower/fire.png" id="2_u7cvv"]
+
+[node name="Spawner" type="Node2D" unique_id=3389643]
+script = ExtResource("1_02aid")
+
+[node name="TargetStart" type="Marker2D" parent="." unique_id=1250353107 groups=["TargetStarts"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=702591272]
+texture = ExtResource("2_u7cvv")

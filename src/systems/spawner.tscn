@@ -1,14 +1,8 @@
-[gd_scene format=3 uid="uid://d1u0p7ogyh2lu"]
+[gd_scene format=3 uid="uid://bst3c4gabg55d"]
 
-[ext_resource type="Script" uid="uid://coaqyst3n8srh" path="res://src/systems/Spawner.cs" id="1_kubxu"]
-[ext_resource type="PackedScene" uid="uid://cjp570p02o0xs" path="res://src/combat/enemy/enemy.tscn" id="2_naelc"]
 [ext_resource type="Texture2D" uid="uid://d3h4ylgn7vw10" path="res://assets/Tower/fire.png" id="3_87n4g"]
 
 [node name="Spawner" type="Node2D" unique_id=3389643]
-script = ExtResource("1_kubxu")
-_enemyScene = ExtResource("2_naelc")
-
-[node name="TargetStart" type="Marker2D" parent="." unique_id=1250353107 groups=["TargetStarts"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=702591272]
 texture = ExtResource("3_87n4g")

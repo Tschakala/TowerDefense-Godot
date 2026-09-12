@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://6aka5n0dl3h2"]
 
 [ext_resource type="Texture2D" uid="uid://cgv8b84qm7fij" path="res://assets/world/Blocks.png" id="2_sd4pb"]
-[ext_resource type="PackedScene" uid="uid://d1u0p7ogyh2lu" path="res://src/systems/spawner.tscn" id="3_f6kn1"]
+[ext_resource type="PackedScene" uid="uid://d1u0p7ogyh2lu" path="res://src/systems/spawner_deprecated.tscn" id="3_f6kn1"]
 [ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://src/world/target/target_end.tscn" id="4_8wr4h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rto0b"]
