@@ -10,6 +10,7 @@ public partial class SpawnerManager : Node2D
 	[Export] private float _spawnDelay = 0.05f; //In Seconds
 	[Export] private int _maxEnemies = 1000;
 	[Export] private Node2D _spawnPointsRoot;
+	[Export] private EnemyManager _enemyManager;
 	private Timer _spawnTimer;
 	private Vector2 _targetPosition;
 	private Vector2[] _spawnPoints;
@@ -83,8 +84,10 @@ public partial class SpawnerManager : Node2D
 			
 			_paths[i] = GetNavigationPath(_spawnPoints[i], _targetPosition);
 		}
+		
+		_enemyManager.SetPathsData(_paths);
 	}
-    
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!_enabled)
@@ -120,10 +123,17 @@ public partial class SpawnerManager : Node2D
 			GD.Print("Enemy Spawned At: ", spawnPoint);
 			GD.Print("Target Position: ", _targetPosition);
 			
-			Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
+			// Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
+			// enemyInstance.GlobalPosition = spawnPoint + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
+			// enemyInstance.SetPath(path);
+			// AddChild(enemyInstance);
+
+			Node2D enemyInstance = _enemyScene.Instantiate<Node2D>();
 			enemyInstance.GlobalPosition = spawnPoint + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
-			enemyInstance.SetPath(path);
+			EnemyData enemyData = new EnemyData(pathId: i, enemyInstance);
 			AddChild(enemyInstance);
+			
+			_enemyManager.AddEnemy(enemyData);
 		}
 	}
 	

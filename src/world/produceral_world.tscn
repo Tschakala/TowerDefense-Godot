@@ -5,7 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bst3c4gabg55d" path="res://src/systems/spawnPoint.tscn" id="3_6bpcd"]
 [ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://src/world/target/target_end.tscn" id="3_n3a2o"]
 [ext_resource type="Script" uid="uid://bb1yy5fi5c2by" path="res://src/systems/SpawnerManager.cs" id="4_ys0h7"]
-[ext_resource type="PackedScene" uid="uid://cjp570p02o0xs" path="res://src/combat/enemy/enemy.tscn" id="5_6bpcd"]
+[ext_resource type="PackedScene" uid="uid://g435kqhwwwwn" path="res://src/combat/enemy/enemy_simple.tscn" id="6_fr00g"]
+[ext_resource type="Script" uid="uid://ctn018bkrlvm0" path="res://src/systems/EnemyManager.cs" id="7_fr00g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rto0b"]
 texture = ExtResource("1_rto0b")
@@ -1998,6 +1999,7 @@ script = ExtResource("1_n3a2o")
 _backGround = NodePath("Background")
 _walls = NodePath("Walls")
 _path = NodePath("Path")
+_pathCount = 2
 _endScene = ExtResource("3_n3a2o")
 _spawnPointScene = ExtResource("3_6bpcd")
 _spawnerManager = NodePath("SpawnerManager")
@@ -2019,8 +2021,13 @@ navigation_layers = 2
 
 [node name="SpawnPointsRoot" type="Node2D" parent="." unique_id=2058524918]
 
-[node name="SpawnerManager" type="Node2D" parent="." unique_id=1890967110 node_paths=PackedStringArray("_spawnPointsRoot")]
+[node name="SpawnerManager" type="Node2D" parent="." unique_id=1890967110 node_paths=PackedStringArray("_spawnPointsRoot", "_enemyManager")]
 process_mode = 3
 script = ExtResource("4_ys0h7")
-_enemyScene = ExtResource("5_6bpcd")
+_enemyScene = ExtResource("6_fr00g")
+_maxEnemies = 2000
 _spawnPointsRoot = NodePath("../SpawnPointsRoot")
+_enemyManager = NodePath("../EnemyManager")
+
+[node name="EnemyManager" type="Node" parent="." unique_id=1228954278]
+script = ExtResource("7_fr00g")
