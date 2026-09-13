@@ -20,8 +20,6 @@ _sensitivity = 0.7
 
 [node name="Towers" type="Node2D" parent="Map" unique_id=1458797474]
 
-[node name="Enemies" type="Node2D" parent="Map" unique_id=2146312619 groups=["Enemies"]]
-
 [node name="TargetEnd" parent="Map" unique_id=873443979 instance=ExtResource("3_ss3ij")]
 
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=802596141]

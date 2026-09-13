@@ -14,8 +14,8 @@ public partial class World : Node2D
 	
 	// Size
 	[Export] private int _mapSize = 200;
-	[Export] private int _pathcount = 15;
-	[Export] private int _pathlenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
+	[Export] private int _pathCount = 15;
+	[Export] private int _pathLenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
 	[Export] private int _minDistanceToEnd = 850;
 	
 	// End
@@ -23,21 +23,21 @@ public partial class World : Node2D
 	[Export] private PackedScene _endScene;
 	
 	// Spawner
-	private List<PathNode> _spawners = new();
-	[Export] private PackedScene _spawnerScene;
+	private readonly List<PathNode> _spawnPoints = new();
+	[Export] private PackedScene _spawnPointScene;
 	
 	//SpawnerManager
 	[Export] private SpawnerManager _spawnerManager;
 	[Export] private Node2D _spawnPointsRoot;
 	
 	// Path
-	private HashSet<Vector2I> _pathTiles = new();
+	private readonly HashSet<Vector2I> _pathTiles = new();
 	
 	// Random Number
 	private RandomNumberGenerator _rng = new RandomNumberGenerator();
 	
-	// NagivationRegion
-	[Export] private NavigationRegion2D _nagivation;
+	// NavRegion
+	[Export] private NavigationRegion2D _navigation;
 	
 	public override void _Ready()
 	{
@@ -49,11 +49,11 @@ public partial class World : Node2D
 		DrawPaths();
 		GenerateMap();
 
-		_nagivation.BakeNavigationPolygon();
+		_navigation.BakeNavigationPolygon();
 		
-		foreach (PathNode n in _spawners)
+		foreach (PathNode n in _spawnPoints)
 		{
-			GD.Print(n.GetPosition);
+			GD.Print(n.Position);
 		}
 
 		EnableAndInitializeSpawnerManager();
@@ -84,13 +84,13 @@ public partial class World : Node2D
 			{
 				if ((i == -(_mapSize / 2) || i == _mapSize - 1 || j == -(_mapSize / 2) || j == _mapSize - 1) || (i == -(_mapSize / 2) + 1 || i == _mapSize - 2 || j == -(_mapSize / 2) + 1 || j == _mapSize - 2)) // walls around the map
 				{
-					DrawBarrior(i, j);
+					DrawBarrier(i, j);
 				}
 			}
 		}
 	}
 
-	private void DrawBarrior(int i, int j)
+	private void DrawBarrier(int i, int j)
 	{
 		if (j ==  -(_mapSize / 2))
 		{
@@ -173,18 +173,18 @@ public partial class World : Node2D
 	
 	private void GenerateSpawners()
 	{
-		for (int x = 0; x < _pathcount; x++)
+		for (int x = 0; x < _pathCount; x++)
 		{
 			Vector2I pos = new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7);
-			while (pos.DistanceTo(_endNode.GetPosition) < _minDistanceToEnd)
+			while (pos.DistanceTo(_endNode.Position) < _minDistanceToEnd)
 			{
 				pos = new Vector2I((_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7, (_rng.RandiRange(-(_mapSize / 2), _mapSize)) * 7);
 			}
 			PathNode node = new PathNode(pos);
-			_spawners.Add(node);
+			_spawnPoints.Add(node);
 			
-			var spawnerInstance = _spawnerScene.Instantiate<Node2D>();
-			spawnerInstance.GlobalPosition = node.GetPosition;
+			var spawnerInstance = _spawnPointScene.Instantiate<Node2D>();
+			spawnerInstance.GlobalPosition = node.Position;
 			_spawnPointsRoot.AddChild(spawnerInstance);
 		}
 		/*TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
@@ -194,10 +194,10 @@ public partial class World : Node2D
 
 	private void GeneratePaths()
 	{
-		foreach (PathNode node in _spawners)
+		foreach (PathNode node in _spawnPoints)
 		{
-			Vector2I start = new Vector2I((int)(node.GetPosition.X / 7.7f), (int)(node.GetPosition.Y / 7.7f));
-			Vector2I end = new Vector2I((int)(_endNode.GetPosition.X / 7.7f), (int)(_endNode.GetPosition.Y / 7.7f));
+			Vector2I start = new Vector2I((int)(node.Position.X / 7.7f), (int)(node.Position.Y / 7.7f));
+			Vector2I end = new Vector2I((int)(_endNode.Position.X / 7.7f), (int)(_endNode.Position.Y / 7.7f));
 
 			CreatePath(start, end);
 		}
@@ -240,9 +240,9 @@ public partial class World : Node2D
 	{
 		foreach (Vector2I tile in _pathTiles)
 		{
-			for (int i = -_pathlenght; i <= _pathlenght; i++)
+			for (int i = -_pathLenght; i <= _pathLenght; i++)
 			{
-				for (int j = -_pathlenght; j <= _pathlenght; j++)
+				for (int j = -_pathLenght; j <= _pathLenght; j++)
 				{
 					DrawColumn(_path, tile + new Vector2I(i ,j), 1, new Vector2I(16,  5));
 				}

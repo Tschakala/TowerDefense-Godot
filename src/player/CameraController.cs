@@ -1,4 +1,3 @@
-using System.Numerics;
 using Godot;
 using Vector2 = Godot.Vector2;
 
@@ -8,7 +7,7 @@ public partial class CameraController : Camera2D
 {
 	[Export] private float _sensitivity = 0.25f;
 	[Export] private float _zoomSensitivity = 0.025f;
- 	private bool _isMoving = false;
+ 	private bool _isMoving;
 	
 	public override void _PhysicsProcess(double delta)
 	{

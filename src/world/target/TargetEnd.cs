@@ -1,7 +1,7 @@
 using Godot;
 using Towerdefense.combat.enemy;
 
-namespace Towerdefense.systems;
+namespace Towerdefense.world.target;
 
 public partial class TargetEnd : Node2D
 {

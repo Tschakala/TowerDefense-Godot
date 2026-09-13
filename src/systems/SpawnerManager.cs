@@ -10,22 +10,18 @@ public partial class SpawnerManager : Node2D
 	[Export] private float _spawnDelay = 0.05f; //In Seconds
 	[Export] private int _maxEnemies = 1000;
 	[Export] private Node2D _spawnPointsRoot;
-	private Timer _spawnTimer = new Timer();
+	private Timer _spawnTimer;
 	private Vector2 _targetPosition;
 	private Vector2[] _spawnPoints;
-	private List<Vector2[]> _paths = new List<Vector2[]>();
-	private int _amountEnemies = 0;
-	private bool _enabled = false;
-
-	public override void _Ready()
-	{
-		InitializeSpawnTimer();
-	}
+	private readonly List<Vector2[]> _paths = [];
+	private int _amountEnemies;
+	private bool _enabled;
 
 	public void Initialize()
 	{
 		InitializeTarget();
 		InitializeSpawnPoints();
+		InitializeSpawnTimer();
 
 		for (int i = 0; i < _spawnPoints.Length; i++)
 		{
@@ -47,7 +43,7 @@ public partial class SpawnerManager : Node2D
 			Node2D currentNode2D = children[i] as Node2D;
 			if (currentNode2D == null)
 			{
-				GD.PrintErr("Couldn't find Node2D in _spawnPointsRoot"); //Wichtig!
+				GD.PrintErr("Couldn't find Node2D in _spawnPointsRoot"); //Important!
 				continue;
 			}
 			_spawnPoints[i] = currentNode2D.GlobalPosition;
@@ -59,7 +55,7 @@ public partial class SpawnerManager : Node2D
 		Node2D target = GetTree().GetFirstNodeInGroup("TargetEnd") as Node2D;
 		if(!IsInstanceValid(target))
 		{
-			GD.PrintErr("No Available Targets found"); //Wichtig!
+			GD.PrintErr("No Available Targets found"); //Important!
 			return;
 		}
         //GD.Print("Target Position: " + target.GlobalPosition);
@@ -69,6 +65,7 @@ public partial class SpawnerManager : Node2D
 
 	private void InitializeSpawnTimer()
 	{
+		_spawnTimer = new Timer();
 		_spawnTimer.WaitTime = _spawnDelay;
 		AddChild(_spawnTimer);
 		_spawnTimer.Timeout += OnSpawnTimeout;
@@ -114,12 +111,9 @@ public partial class SpawnerManager : Node2D
 			Vector2 spawnPoint = _spawnPoints[i];
 			Vector2[] path = _paths[i];
 			
-			//GD.Print("Spawnpoint: " + spawnPoint);
-			//GD.Print("Path: " + path.Length);
-			
 			if (path.Length == 0)
 			{
-				GD.Print("_path is empty, aborting..."); //Wichtig!
+				GD.Print("_path is empty, aborting..."); //Important!
 				return;
 			}
 

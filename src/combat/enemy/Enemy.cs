@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 namespace Towerdefense.combat.enemy;
@@ -9,7 +7,7 @@ public partial class Enemy : CharacterBody2D
     [Export] private float _minSpeed = 22f;
     [Export] private float _maxSpeed = 28f;
     private Vector2[] _path;
-    private int _currentPathIndex = 0;
+    private int _currentPathIndex;
     [Export] private AnimatedSprite2D _frameSprite;
 
     public override void _Ready()
@@ -77,8 +75,8 @@ public partial class Enemy : CharacterBody2D
         }
     }
     
-    public override void _ExitTree()
-    {
-        GD.Print("ENEMY REMOVED");
-    }
+    // public override void _ExitTree()
+    // {
+    //     GD.Print("ENEMY REMOVED");
+    // }
 }

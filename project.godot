@@ -14,6 +14,7 @@ config/name="Towerdefense"
 run/main_scene="uid://ph7cyxt0dnfy"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=360
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
