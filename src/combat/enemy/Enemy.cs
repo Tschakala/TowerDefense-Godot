@@ -11,6 +11,7 @@ public partial class Enemy : CharacterBody2D
     [Export] private AnimatedSprite2D _frameSprite;
     private float _speed;
     private int _frameCount;
+    private int _fpsBuffer = 5;
 
     public override void _Ready()
     {
@@ -29,7 +30,7 @@ public partial class Enemy : CharacterBody2D
         _frameCount++;
         //GD.Print("Enemy is Alive!");
 
-        if (_frameCount % 5 == 0)
+        if (_frameCount % _fpsBuffer == 0)
         {
             if (_path == null || _path.Length == 0)
                 return;
@@ -57,7 +58,7 @@ public partial class Enemy : CharacterBody2D
 
                 if (_currentPathIndex >= _path.Length) 
                 {
-                    GD.Print("Enemy reached end of path");
+                    //GD.Print("Enemy reached end of path");
                     return;
                 }
 
@@ -65,28 +66,25 @@ public partial class Enemy : CharacterBody2D
             }
             
             Vector2 direction = (targetPoint - GlobalPosition).Normalized();
-            direction = direction.Normalized();
-            Velocity = direction * _speed;
+            Velocity = direction * _speed * _fpsBuffer;
             
             MoveAndSlide();
-        }
-        
-        if (_frameCount % 2 == 0)
-        {
+            
             for (int i = 0; i < GetSlideCollisionCount(); i++)
             {
                 var collision = GetSlideCollision(i);
 
                 if (collision.GetCollider() is Enemy other)
                 {
-                    other.GlobalPosition += Velocity.Normalized() * 1.5f;
+                    other.GlobalPosition += (Velocity.Normalized() * 1.5f) * _fpsBuffer;
                 }
             }
         }
+        
     }
     
-    // public override void _ExitTree()
-    // {
-    //     GD.Print("ENEMY REMOVED");
-    // }
+     /*public override void _ExitTree()
+     {
+         GD.Print("ENEMY REMOVED");
+     }*/
 }

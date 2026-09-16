@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using Towerdefense.systems;
+using Towerdefense.world.target;
 
 namespace Towerdefense.world;
 
@@ -51,14 +52,14 @@ public partial class World : Node2D
 
 		_navigation.BakeNavigationPolygon();
 		
-		foreach (PathNode n in _spawnPoints)
+		/*foreach (PathNode n in _spawnPoints)
 		{
 			GD.Print(n.Position);
-		}
+		}*/
 
 		EnableAndInitializeSpawnerManager();
 	}
-
+	
 	private void EnableAndInitializeSpawnerManager()
 	{
 		_spawnerManager.Initialize();
@@ -188,7 +189,7 @@ public partial class World : Node2D
 			_spawnPointsRoot.AddChild(spawnerInstance);
 		}
 		/*TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
-		targetEndInstance.GlobalPosition = _endNode.GetPosition;
+		targetEndInstance.GlobalPosition = _endNode.Position;
 		AddChild(targetEndInstance);*/
 	}
 
