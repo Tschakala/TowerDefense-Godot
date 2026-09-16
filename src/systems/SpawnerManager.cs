@@ -8,7 +8,7 @@ public partial class SpawnerManager : Node2D
 {
 	[Export] private PackedScene _enemyScene;
 	[Export] private float _spawnDelay = 0.05f; //In Seconds
-	[Export] private int _maxEnemies = 1000;
+	[Export] private int _maxEnemies = 2000;
 	[Export] private Node2D _spawnPointsRoot;
 	private Timer _spawnTimer;
 	private Vector2 _targetPosition;
