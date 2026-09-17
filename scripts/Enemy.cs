@@ -1,17 +1,20 @@
 using Godot;
 
-namespace Towerdefense.combat.enemy;
+namespace Towerdefense.scripts;
 
 public partial class Enemy : CharacterBody2D
 {
-    [Export] private float _minSpeed = 52f;
-    [Export] private float _maxSpeed = 68f;
+    private static readonly Config Conf = new Config();
+    
+    [Export] private AnimatedSprite2D _frameSprite;
+    private float _minSpeed = Conf.MinSpeed;
+    private float _maxSpeed = Conf.MaxSpeed;
+    private int _fpsBuffer = Conf.FpsBuffer;
     private Vector2[] _path;
     private int _currentPathIndex;
-    [Export] private AnimatedSprite2D _frameSprite;
     private float _speed;
     private int _frameCount;
-    private int _fpsBuffer = 5;
+    
 
     public override void _Ready()
     {
@@ -28,7 +31,6 @@ public partial class Enemy : CharacterBody2D
     public override void _PhysicsProcess(double delta)
     {
         _frameCount++;
-        //GD.Print("Enemy is Alive!");
 
         if (_frameCount % _fpsBuffer == 0)
         {
@@ -58,7 +60,6 @@ public partial class Enemy : CharacterBody2D
 
                 if (_currentPathIndex >= _path.Length) 
                 {
-                    //GD.Print("Enemy reached end of path");
                     return;
                 }
 
@@ -82,9 +83,4 @@ public partial class Enemy : CharacterBody2D
         }
         
     }
-    
-     /*public override void _ExitTree()
-     {
-         GD.Print("ENEMY REMOVED");
-     }*/
 }

@@ -1,12 +1,14 @@
 using Godot;
 using Vector2 = Godot.Vector2;
 
-namespace Towerdefense.player;
+namespace Towerdefense.scripts;
 
 public partial class CameraController : Camera2D
 {
-	[Export] private float _sensitivity = 0.25f;
-	[Export] private float _zoomSensitivity = 0.025f;
+	private static readonly Config Conf = new Config();
+	
+	private float _sensitivity = Conf.Sensitivity;
+	private float _zoomSensitivity = Conf.ZoomSensitivity;
  	private bool _isMoving;
 	
 	public override void _PhysicsProcess(double delta)

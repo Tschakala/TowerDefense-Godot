@@ -1,5 +1,6 @@
 using Godot;
-namespace Towerdefense.world;
+
+namespace Towerdefense.scripts;
 
 public class PathNode(Vector2I position)
 {

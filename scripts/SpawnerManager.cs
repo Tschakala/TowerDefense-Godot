@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using Godot;
-using Towerdefense.combat.enemy;
 
-namespace Towerdefense.systems;
+namespace Towerdefense.scripts;
 
 public partial class SpawnerManager : Node2D
 {
+	private static readonly Config Conf = new Config();
+	
 	[Export] private PackedScene _enemyScene;
-	[Export] private float _spawnDelay = 0.05f; //In Seconds
-	[Export] private int _maxEnemies = 2000;
 	[Export] private Node2D _spawnPointsRoot;
+	private float _spawnDelay = Conf.SpawnDelay; //In Seconds
+	private int _maxEnemies = Conf.MaxEnemies;
 	private Timer _spawnTimer;
 	private Vector2 _targetPosition;
 	private Vector2[] _spawnPoints;
@@ -53,13 +54,11 @@ public partial class SpawnerManager : Node2D
 	private void InitializeTarget()
 	{
 		Node2D target = GetTree().GetFirstNodeInGroup("TargetEnd") as Node2D;
-;
 		if(!IsInstanceValid(target))
 		{
 			//GD.PrintErr("No Available Targets found"); //Important!
 			return;
 		}
-        //GD.Print("Target Position: " + target.GlobalPosition);
         
         _targetPosition = target.GlobalPosition;
 	}
@@ -97,13 +96,11 @@ public partial class SpawnerManager : Node2D
 	{
 		if (!_enabled)
 			return;
-		//GD.Print("Spawning Enemy...");
 		_amountEnemies = GetChildren().Count;
-		//GD.Print("Amount of enemies: " + _amountEnemies);
+		GD.Print("Amount of enemies: " + _amountEnemies);
 
 		if (_amountEnemies + _spawnPoints.Length > _maxEnemies)
 		{
-			//GD.Print("Maximum amount of enemies reached... aborting");
 			return;
 		}
 		
@@ -117,9 +114,6 @@ public partial class SpawnerManager : Node2D
 				//GD.Print("_path is empty, aborting..."); //Important!
 				return;
 			}
-
-			//GD.Print("Enemy Spawned At: ", spawnPoint);
-			//GD.Print("Target Position: ", _targetPosition);
 			
 			Enemy enemyInstance = _enemyScene.Instantiate<Enemy>();
 			enemyInstance.GlobalPosition = spawnPoint + new Vector2(GD.RandRange(-5, 5), GD.RandRange(-5, 5));
@@ -130,11 +124,6 @@ public partial class SpawnerManager : Node2D
 	
 	private Vector2[] GetNavigationPath(Vector2 startPosition, Vector2 targetPosition)
 	{
-		 /*if (!IsInsideTree())
-		 {
-		 	return Array.Empty<Vector2>();
-		 }*/
-
 		Rid defaultMapRid = GetWorld2D().NavigationMap;
 		Vector2[] path = NavigationServer2D.MapGetPath(
 			defaultMapRid,

@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Towerdefense.systems;
-using Towerdefense.world.target;
 
-namespace Towerdefense.world;
+namespace Towerdefense.scripts;
 
 public partial class World : Node2D
 {
+	private static readonly Config Conf = new Config();
+	
 	// TileMaps
 	[Export] private TileMapLayer _backGround;
 	[Export] private TileMapLayer _walls;
 	[Export] private TileMapLayer _path;
 	
 	// Size
-	[Export] private int _mapSize = 200;
-	[Export] private int _pathCount = 15;
-	[Export] private int _pathLenght = 3; // 1 == 3x3 paths, 2 == 5x5 paths ...
-	[Export] private int _minDistanceToEnd = 850;
+	private int _mapSize = Conf.MapSize;
+	private int _pathCount = Conf.PathCount;
+	private int _pathLenght = Conf.PathLenght; // 1 == 3x3 paths, 2 == 5x5 paths ...
+	private int _minDistanceToEnd = Conf.MinDistanceToEnd * 4;
 	
 	// End
 	private PathNode _endNode;
@@ -51,11 +51,6 @@ public partial class World : Node2D
 		GenerateMap();
 
 		_navigation.BakeNavigationPolygon();
-		
-		/*foreach (PathNode n in _spawnPoints)
-		{
-			GD.Print(n.Position);
-		}*/
 
 		EnableAndInitializeSpawnerManager();
 	}
@@ -188,9 +183,6 @@ public partial class World : Node2D
 			spawnerInstance.GlobalPosition = node.Position;
 			_spawnPointsRoot.AddChild(spawnerInstance);
 		}
-		/*TargetEnd targetEndInstance = _endScene.Instantiate<TargetEnd>();
-		targetEndInstance.GlobalPosition = _endNode.Position;
-		AddChild(targetEndInstance);*/
 	}
 
 	private void GeneratePaths()
