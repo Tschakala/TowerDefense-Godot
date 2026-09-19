@@ -19,16 +19,16 @@ public partial class Enemy : CharacterBody2D
 
     public override void _Ready()
     {
-        if (_rng.RandiRange(1, 1000) == 999)
-        {
-            _frameSprite.Frame = 0;
-        }
-        else
-        {
-            _frameSprite.Frame = 14;
-        }
+        // if (_rng.RandiRange(1, 1000) == 999)
+        // {
+        //     _frameSprite.Frame = 0;
+        // }
+        // else
+        // {
+        //     _frameSprite.Frame = 14;
+        // }
         
-        //_frameSprite.Frame = GD.RandRange(0, 14);
+        _frameSprite.Frame = GD.RandRange(0, 14);
         _speed = (float)GD.RandRange(_minSpeed, _maxSpeed);
     }
     

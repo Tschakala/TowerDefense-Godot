@@ -6,12 +6,12 @@ namespace Towerdefense.source.combat.enemy;
 
 public partial class SpawnerManager : Node2D
 {
-	private static readonly Config Conf = new Config();
+	private static readonly Config Config = new Config();
 	
 	[Export] private PackedScene _enemyScene;
 	[Export] private Node2D _spawnPointsRoot;
-	private float _spawnDelay = Conf.SpawnDelay; //In Seconds
-	private int _maxEnemies = Conf.MaxEnemies;
+	private float _spawnDelay = Config.SpawnDelay; //In Seconds
+	private int _maxEnemies = Config.MaxEnemies;
 	private Timer _spawnTimer;
 	private Vector2 _targetPosition;
 	private Vector2[] _spawnPoints;
@@ -45,7 +45,7 @@ public partial class SpawnerManager : Node2D
 			Node2D currentNode2D = children[i] as Node2D;
 			if (currentNode2D == null)
 			{
-				//GD.PrintErr("Couldn't find Node2D in _spawnPointsRoot"); //Important!
+				GD.PrintErr("Couldn't find Node2D in _spawnPointsRoot"); //Important!
 				continue;
 			}
 			_spawnPoints[i] = currentNode2D.GlobalPosition;
@@ -57,7 +57,7 @@ public partial class SpawnerManager : Node2D
 		Node2D target = GetTree().GetFirstNodeInGroup("TargetEnd") as Node2D;
 		if(!IsInstanceValid(target))
 		{
-			//GD.PrintErr("No Available Targets found"); //Important!
+			GD.PrintErr("No Available Targets found"); //Important!
 			return;
 		}
         
@@ -98,7 +98,7 @@ public partial class SpawnerManager : Node2D
 		if (!_enabled)
 			return;
 		_amountEnemies = GetChildren().Count;
-		GD.Print("Amount of enemies: " + _amountEnemies);
+		//GD.Print("Amount of enemies: " + _amountEnemies);
 
 		if (_amountEnemies + _spawnPoints.Length > _maxEnemies)
 		{
@@ -112,7 +112,7 @@ public partial class SpawnerManager : Node2D
 			
 			if (path.Length == 0)
 			{
-				//GD.Print("_path is empty, aborting..."); //Important!
+				GD.Print("_path is empty, aborting..."); //Important!
 				return;
 			}
 			

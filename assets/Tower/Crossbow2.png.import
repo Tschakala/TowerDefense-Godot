@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cq4r87lx0qavf"
-path="res://.godot/imported/Crossbow2.png-b70253e56687131aa98dbb6764b35fce.ctex"
+path="res://.godot/imported/Crossbow2.png-f5efee604ce4109ce007bba0ba56f672.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Tower/Crossbow2.png"
-dest_files=["res://.godot/imported/Crossbow2.png-b70253e56687131aa98dbb6764b35fce.ctex"]
+source_file="res://assets/tower/Crossbow2.png"
+dest_files=["res://.godot/imported/Crossbow2.png-f5efee604ce4109ce007bba0ba56f672.ctex"]
 
 [params]
 

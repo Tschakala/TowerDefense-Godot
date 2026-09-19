@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://bsx1xqjqtemeu" path="res://source/combat/player/Player.cs" id="2_q4k16"]
 [ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://source/world/target_end.tscn" id="3_iywne"]
 [ext_resource type="Script" uid="uid://b83543ve8f2kd" path="res://source/combat/player/HealthBar.cs" id="4_mpbdt"]
+[ext_resource type="Texture2D" uid="uid://dkxo828il2hb2" path="res://assets/cursor/pc_pointer..png" id="5_goaxl"]
+[ext_resource type="Texture2D" uid="uid://yiswioy8r44h" path="res://assets/cursor/pc_grab..png" id="6_1c3o4"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
@@ -24,7 +26,10 @@ script = ExtResource("2_q4k16")
 [node name="PlayerCamera" type="Camera2D" parent="Map" unique_id=1022791893]
 position = Vector2(1, 0)
 offset = Vector2(320, 180)
+zoom = Vector2(0.5, 0.5)
 script = ExtResource("1_lnu2h")
+_defaultCursor = ExtResource("5_goaxl")
+_grabCursor = ExtResource("6_1c3o4")
 
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=802596141]
 layer = 10
@@ -32,21 +37,31 @@ layer = 10
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=769655016]
 layer = 100
 
-[node name="HealthBar" type="ProgressBar" parent="HUDLayer" unique_id=1477694992]
-custom_maximum_size = Vector2(100, -1)
+[node name="HUDRoot" type="Control" parent="HUDLayer" unique_id=1770193021]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="HUDLayer/HUDRoot" unique_id=1477694992]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -100.0
-offset_bottom = 27.0
+offset_left = -181.0
+offset_top = 3.0
+offset_right = -2.3636475
+offset_bottom = 18.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.14804223, 0.59459496, 3.85046e-07, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 value = 100.0
+show_percentage = false
 script = ExtResource("4_mpbdt")
-metadata/_edit_use_anchors_ = true
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1848101562]
 layer = 200
 
-[connection signal="HealthChanged" from="System/Player" to="HUDLayer/HealthBar" method="OnHealthChanged"]
+[connection signal="HealthChanged" from="System/Player" to="HUDLayer/HUDRoot/HealthBar" method="OnHealthChanged"]

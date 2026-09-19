@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dceq7ucwcbtq"]
 
 [ext_resource type="Script" uid="uid://bv854yt42k04s" path="res://source/world/TargetEnd.cs" id="1_7mijx"]
-[ext_resource type="Texture2D" uid="uid://djjavdyeq3b8f" path="res://assets/Tower/ice.png" id="2_qs1x2"]
+[ext_resource type="Texture2D" uid="uid://djjavdyeq3b8f" path="res://assets/tower/ice.png" id="2_qs1x2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ryh5l"]
 size = Vector2(63, 58)

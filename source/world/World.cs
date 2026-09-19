@@ -18,7 +18,7 @@ public partial class World : Node2D
 	// Size
 	private int _mapSize = Conf.MapSize;
 	private int _pathCount = Conf.PathCount;
-	private int _pathLenght = Conf.PathLenght; // 1 == 3x3 paths, 2 == 5x5 paths ...
+	private int _pathLenght = Conf.PathLength; // 1 == 3x3 paths, 2 == 5x5 paths ...
 	private int _minDistanceToEnd = Conf.MinDistanceToEnd * 4;
 	
 	// End
