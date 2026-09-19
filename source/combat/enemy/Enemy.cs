@@ -1,10 +1,10 @@
 using Godot;
 
-namespace Towerdefense.scripts;
+namespace Towerdefense.source.combat.enemy;
 
 public partial class Enemy : CharacterBody2D
 {
-    private static readonly Config Conf = new Config();
+    private static readonly core.Config Conf = new core.Config();
     
     [Export] private AnimatedSprite2D _frameSprite;
     private float _minSpeed = Conf.MinSpeed;
@@ -14,11 +14,20 @@ public partial class Enemy : CharacterBody2D
     private int _currentPathIndex;
     private float _speed;
     private int _frameCount;
-    
+    private RandomNumberGenerator _rng = new RandomNumberGenerator();
 
     public override void _Ready()
     {
-        _frameSprite.Frame = GD.RandRange(0, 14);
+        if (_rng.RandiRange(1, 1000) == 999)
+        {
+            _frameSprite.Frame = 0;
+        }
+        else
+        {
+            _frameSprite.Frame = 14;
+        }
+        
+        //_frameSprite.Frame = GD.RandRange(0, 14);
         _speed = (float)GD.RandRange(_minSpeed, _maxSpeed);
     }
     

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Towerdefense.scripts;
+namespace Towerdefense.source.core;
 
 public partial class Config : Node
 {

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ph7cyxt0dnfy"]
 
-[ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://scripts/CameraController.cs" id="1_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://scenes/produceral_world.tscn" id="2_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://scenes/target_end.tscn" id="3_iywne"]
+[ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://source/combat/player/CameraController.cs" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://source/world/produceral_world.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://source/world/target_end.tscn" id="3_iywne"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
@@ -12,7 +12,6 @@
 position = Vector2(1, 0)
 offset = Vector2(320, 180)
 script = ExtResource("1_lnu2h")
-_sensitivity = 0.7
 
 [node name="Map" type="Node2D" parent="." unique_id=350258239]
 

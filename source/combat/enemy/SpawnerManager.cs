@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace Towerdefense.scripts;
+namespace Towerdefense.source.combat.enemy;
 
 public partial class SpawnerManager : Node2D
 {
-	private static readonly Config Conf = new Config();
+	private static readonly core.Config Conf = new core.Config();
 	
 	[Export] private PackedScene _enemyScene;
 	[Export] private Node2D _spawnPointsRoot;
