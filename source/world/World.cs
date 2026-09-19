@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using Config = Towerdefense.source.core.Config;
 using SpawnerManager = Towerdefense.source.combat.enemy.SpawnerManager;
+using Towerdefense.source.core;
 
 namespace Towerdefense.source.world;
 

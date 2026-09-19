@@ -1,11 +1,12 @@
 using Godot;
 using Vector2 = Godot.Vector2;
+using Towerdefense.source.core;
 
 namespace Towerdefense.source.combat.player;
 
 public partial class CameraController : Camera2D
 {
-	private static readonly core.Config Conf = new core.Config();
+	private static readonly Config Conf = new Config();
 	
 	private float _sensitivity = Conf.Sensitivity;
 	private float _zoomSensitivity = Conf.ZoomSensitivity;

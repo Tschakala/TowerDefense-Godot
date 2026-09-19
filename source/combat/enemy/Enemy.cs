@@ -1,10 +1,11 @@
 using Godot;
+using Towerdefense.source.core;
 
 namespace Towerdefense.source.combat.enemy;
 
 public partial class Enemy : CharacterBody2D
 {
-    private static readonly core.Config Conf = new core.Config();
+    private static readonly Config Conf = new Config();
     
     [Export] private AnimatedSprite2D _frameSprite;
     private float _minSpeed = Conf.MinSpeed;

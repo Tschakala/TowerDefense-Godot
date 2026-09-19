@@ -4,9 +4,10 @@ namespace Towerdefense.source.core;
 
 public partial class Config : Node
 {
-    //Camera Controller
+    //Player
     [Export] public float Sensitivity = 0.25f;
     [Export] public float ZoomSensitivity = 0.025f;
+    [Export] public int MaxHealth = 100;
     
     //Enemy
     [Export] public float MinSpeed = 22f;

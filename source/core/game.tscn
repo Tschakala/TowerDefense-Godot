@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://source/combat/player/CameraController.cs" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://source/world/produceral_world.tscn" id="2_lbhrr"]
+[ext_resource type="Script" uid="uid://bsx1xqjqtemeu" path="res://source/combat/player/Player.cs" id="2_q4k16"]
 [ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://source/world/target_end.tscn" id="3_iywne"]
+[ext_resource type="Script" uid="uid://b83543ve8f2kd" path="res://source/combat/player/HealthBar.cs" id="4_mpbdt"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
 [node name="System" type="Node" parent="." unique_id=57239563]
 
-[node name="PlayerCamera" type="Camera2D" parent="System" unique_id=1676960948]
-position = Vector2(1, 0)
-offset = Vector2(320, 180)
-script = ExtResource("1_lnu2h")
+[node name="Player" type="Node" parent="System" unique_id=485740075]
+script = ExtResource("2_q4k16")
 
 [node name="Map" type="Node2D" parent="." unique_id=350258239]
 
@@ -21,11 +21,32 @@ script = ExtResource("1_lnu2h")
 
 [node name="TargetEnd" parent="Map" unique_id=873443979 instance=ExtResource("3_iywne")]
 
+[node name="PlayerCamera" type="Camera2D" parent="Map" unique_id=1022791893]
+position = Vector2(1, 0)
+offset = Vector2(320, 180)
+script = ExtResource("1_lnu2h")
+
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=802596141]
 layer = 10
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=769655016]
 layer = 100
 
+[node name="HealthBar" type="ProgressBar" parent="HUDLayer" unique_id=1477694992]
+custom_maximum_size = Vector2(100, -1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 27.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.14804223, 0.59459496, 3.85046e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+value = 100.0
+script = ExtResource("4_mpbdt")
+metadata/_edit_use_anchors_ = true
+
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1848101562]
 layer = 200
+
+[connection signal="HealthChanged" from="System/Player" to="HUDLayer/HealthBar" method="OnHealthChanged"]
