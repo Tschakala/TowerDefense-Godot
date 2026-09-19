@@ -16,7 +16,7 @@ public partial class Config : Node
     
     //Spawner Manager
     [Export] public float SpawnDelay = 0.05f; //In Seconds
-    [Export] public int MaxEnemies = 1000;
+    [Export] public int MaxEnemies = 1100;
     
     //World
     [Export] public int MapSize = 200;

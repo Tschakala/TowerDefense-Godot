@@ -116,9 +116,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_u0upf"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_awakr"]
+radius = 5.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=630119231 node_paths=PackedStringArray("_frameSprite") groups=["Enemies"]]
+[node name="Enemy" type="CharacterBody2D" unique_id=688643516 node_paths=PackedStringArray("_frameSprite") groups=["Enemies"]]
 motion_mode = 1
 script = ExtResource("1_rwq63")
 _frameSprite = NodePath("AnimatedSprite2D")
@@ -130,6 +131,5 @@ sprite_frames = SubResource("SpriteFrames_ryh5l")
 frame = 11
 frame_progress = 0.4897938
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=680854346]
-scale = Vector2(0.25, 0.25)
-shape = SubResource("CircleShape2D_u0upf")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1837621025]
+shape = SubResource("CircleShape2D_awakr")

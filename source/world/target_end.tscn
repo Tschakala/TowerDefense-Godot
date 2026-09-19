@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://djjavdyeq3b8f" path="res://assets/tower/ice.png" id="2_qs1x2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ryh5l"]
-size = Vector2(63, 58)
+size = Vector2(25.5, 26)
 
 [node name="TargetEnd" type="Node2D" unique_id=873443979 groups=["TargetEnd"]]
 script = ExtResource("1_7mijx")
@@ -18,4 +18,5 @@ shape = SubResource("RectangleShape2D_ryh5l")
 scale = Vector2(1.59375, 1.5625)
 texture = ExtResource("2_qs1x2")
 
+[connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://cngqrxb1liyr8" path="res://source/combat/player/CameraController.cs" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://o61ir3ofnlro" path="res://source/world/produceral_world.tscn" id="2_lbhrr"]
 [ext_resource type="Script" uid="uid://bsx1xqjqtemeu" path="res://source/combat/player/Player.cs" id="2_q4k16"]
+[ext_resource type="Script" uid="uid://cjxettvddktnf" path="res://source/DebugDataReader.cs" id="2_uq0jt"]
 [ext_resource type="PackedScene" uid="uid://dceq7ucwcbtq" path="res://source/world/target_end.tscn" id="3_iywne"]
 [ext_resource type="Script" uid="uid://b83543ve8f2kd" path="res://source/combat/player/HealthBar.cs" id="4_mpbdt"]
 [ext_resource type="Texture2D" uid="uid://dkxo828il2hb2" path="res://assets/cursor/pc_pointer..png" id="5_goaxl"]
 [ext_resource type="Texture2D" uid="uid://yiswioy8r44h" path="res://assets/cursor/pc_grab..png" id="6_1c3o4"]
+[ext_resource type="Script" uid="uid://qi1fptk6dkeo" path="res://source/debug/DataRoot.cs" id="8_60tyf"]
 
 [node name="Game" type="Node" unique_id=925713696]
 
@@ -14,6 +16,9 @@
 
 [node name="Player" type="Node" parent="System" unique_id=485740075]
 script = ExtResource("2_q4k16")
+
+[node name="DebugDataReader" type="Node" parent="System" unique_id=609703511]
+script = ExtResource("2_uq0jt")
 
 [node name="Map" type="Node2D" parent="." unique_id=350258239]
 
@@ -64,4 +69,45 @@ script = ExtResource("4_mpbdt")
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1848101562]
 layer = 200
 
+[node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=1188893142]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DataRoot" type="Control" parent="DebugLayer/DebugRoot" unique_id=1560671663 node_paths=PackedStringArray("_label")]
+anchors_preset = 0
+offset_right = 145.0
+offset_bottom = 56.0
+script = ExtResource("8_60tyf")
+_label = NodePath("LabelData")
+
+[node name="Background" type="ColorRect" parent="DebugLayer/DebugRoot/DataRoot" unique_id=79827325]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.18431373)
+
+[node name="LabelData" type="Label" parent="DebugLayer/DebugRoot/DataRoot" unique_id=1411242800]
+custom_maximum_size = Vector2(150, 180.505)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.5
+offset_top = 4.7474976
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 9
+text = "placeholder"
+autowrap_mode = 1
+
 [connection signal="HealthChanged" from="System/Player" to="HUDLayer/HUDRoot/HealthBar" method="OnHealthChanged"]
+[connection signal="DebugDataChanged" from="System/DebugDataReader" to="DebugLayer/DebugRoot/DataRoot" method="SetDataLabelText"]

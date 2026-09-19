@@ -2019,7 +2019,7 @@ navigation_layers = 2
 
 [node name="SpawnPointsRoot" type="Node2D" parent="." unique_id=2058524918]
 
-[node name="SpawnerManager" type="Node2D" parent="." unique_id=1890967110 node_paths=PackedStringArray("_spawnPointsRoot")]
+[node name="SpawnerManager" type="Node2D" parent="." unique_id=1890967110 node_paths=PackedStringArray("_spawnPointsRoot") groups=["spawner_manager"]]
 process_mode = 3
 script = ExtResource("5_4umxb")
 _enemyScene = ExtResource("6_w3oi5")

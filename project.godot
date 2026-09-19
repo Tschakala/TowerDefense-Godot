@@ -25,7 +25,6 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="uid://dkxo828il2hb2"
 
 [dotnet]
@@ -38,10 +37,11 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res:/
 
 [global_group]
 
-Enemies=""
-TargetStarts=""
-TargetEnd=""
 world_geometry=""
+enemies=""
+target_end=""
+spawnpoint=""
+spawner_manager=""
 
 [input]
 

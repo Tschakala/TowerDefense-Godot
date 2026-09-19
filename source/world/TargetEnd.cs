@@ -12,4 +12,12 @@ public partial class TargetEnd : Node2D
 			enemy.QueueFree();
 		}
 	}
+
+	private void OnAreaEntered(Area2D area)
+	{
+		// if (area is Enemy enemy)
+		// {
+		// 	enemy.QueueFree();
+		// }
+	}
 }
